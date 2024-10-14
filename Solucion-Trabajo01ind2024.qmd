@@ -46,15 +46,15 @@ Concluimos que la alternativa óptima es d1, debido a que sale como mejor opció
 
 ### Problema 2: Inés busca trabajo en una ciudad nueva, para ello está buscando piso y ha encontrado dos opciones que se ajustan a sus necesidades, una de ellas se encuentra a 5 minutos andando del trabajo y la otra a 1 hora en autobus. Su sueldo si consigue el trabajo sería de 1500€ al mes, si elige vivir cerca no tendrá gastos en transporte ni en comer fuera pero el alquiler supondría el 60% de su sueldo, mientras que si escoge vivir lejos deberá gastar el 5% en transporte, el 20% en comida y el 25% en alquiler. ¿Qué decisión tomará Inés si no sabe si conseguirá el trabajo?
 
-Trasladamos lo datos obtenidos a una tabla en la que tenemos dos alternativas (vivir cerca o lejos) y 2 estados de la naturaleza (si consigue el trabajo o no).
+Trasladamos lo datos obtenidos a una tabla en la que tenemos dos alternativas (d1=vivir cerca, d2=vivir lejos) y 2 estados de la naturaleza (e1=si consigue el trabajo, e2=si no lo consigue).
 
 ```{r}
 source("teoriadecision_funciones_incertidumbre.R")
 
-m11 = 1500 - (1500*0 + 1500*0.6 + 1500*0)
-m12 = 0 - (1500*0 + 1500*0.6 + 1500*0)
+m11 = 1500 - (1500*0 + 1500*0.4 + 1500*0)
+m12 = 0 - (1500*0 + 1500*0.4 + 1500*0)
 m21 = 1500 - (1500*0.05 + 1500*0.25 + 1500*0.2)
-m22 = 0 - (1500*0.05 + 1500*0.25 + 1500*0.2)
+m22 = 0 - (1500*0 + 1500*0.25 + 1500*0) #No haría gasto en transporte y comida porque no va a tener que desplazarse si no consigue el empleo.
 
 
 tabla2=crea.tablaX(c(m11,m12,
@@ -69,4 +69,4 @@ criterio.Todos(tabla2,alfa=0.5,T)
 #criterio.Todos(tabla2,alfa=0.5,T)[3,] devuelve la tercera fila que es la de las decisiones según cada criterio
 ```
 
-Concluimos entonces que Inés deberá mudarse lejos del trabajo, ya que en este caso ahorraría 750€ al mes si consigue el trabajo y perdería -750€ si no lo consigue.
+Concluimos entonces que Inés deberá mudarse lejos del trabajo, ya que en este caso ahorraría 750€ al mes si consigue el trabajo y perdería -375€ si no lo consigue. Todos los criterios coinciden excepto el criterio optimista.
