@@ -6,6 +6,8 @@ editor: visual
 
 # Trabajo 01: Teoría de la Decisión bajo incertidumbre.
 
+# Elena Inés Palomino Galiana.
+
 ### Problema 1: Aplicar los criterios de decisión bajo incertidumbre al problema cuya matriz de valores numéricos viene dadas en la tabla siguiente:
 
 ```{r}
@@ -20,53 +22,42 @@ Vamos a resolverlo utilizando los métodos tanto en situación favorable como de
 ```{r}
 source("teoriadecision_funciones_incertidumbre.R")
 
-p1_pes = criterio.Wald(tabla1,T)
-names(p1_pes$AlternativaOptima) #Las alternativas optimas son d2 y d3
+#Criterio de Wald
+p1_pesF = criterio.Wald(tabla1,T)
+names(p1_pesF$AlternativaOptima) #Las alternativas optimas son d2 y d3
+p1_pesD = criterio.Wald(tabla1,F)
+names(p1_pesD$AlternativaOptima) #La alternativa optima es d2
 
-p1_opt = criterio.Optimista(tabla1,T)
-names(p1_opt$AlternativaOptima) #Las alternativas optimas son d1 y d3
+#Criterio Optimista
+p1_optF = criterio.Optimista(tabla1,T)
+names(p1_optF$AlternativaOptima) #Las alternativas optimas son d1 y d3
+p1_optD = criterio.Optimista(tabla1,F)
+names(p1_optD$AlternativaOptima) ##La alternativa optima es d1
 
-p1_hur = criterio.Hurwicz(tabla1,alfa=0.4,T)
-names(p1_hur$AlternativaOptima) #La alternativa optima es d3
+#Criterio de Hurwicz
+p1_hurF = criterio.Hurwicz(tabla1,alfa=0.4,T)
+names(p1_hurF$AlternativaOptima) #La alternativa optima es d3
+p1_hurD = criterio.Hurwicz(tabla1,alfa=0.4,F)
+names(p1_hurD$AlternativaOptima) #La alternativa optima es d2
 
-p1_sav = criterio.Savage(tabla1,T)
-names(p1_sav$AlternativaOptima) #Las alternativas optimas son d1 y d3
+#Criterio de Savage
+p1_savF = criterio.Savage(tabla1,T)
+names(p1_savF$AlternativaOptima) #Las alternativas optimas son d1 y d3
+p1_savD = criterio.Savage(tabla1,F)
+names(p1_savD$AlternativaOptima) #La alternativa optima es d2
 
-p1_lap = criterio.Laplace(tabla1,T)
-names(p1_lap$AlternativaOptima) #Las alternativas optimas son d1 y d3
-p1_lap$ValorAlternativas
+#Criterio de Laplace
+p1_lapF = criterio.Laplace(tabla1,T)
+names(p1_lapF$AlternativaOptima) #Las alternativas optimas son d1 y d3
+p1_lapF$ValorAlternativas
+p1_lapD = criterio.Laplace(tabla1,F)
+names(p1_lapD$AlternativaOptima) #La alternativa optima es d2
 
-p1_pid = criterio.PuntoIdeal(tabla1,T)
-names(p1_pid$AlternativaOptima) #Las alternativas optimas son d1 y d3
-p1_pid$ValorAlternativas
+#Criterio de Punto Ideal
+p1_pidF = criterio.PuntoIdeal(tabla1,T)
+names(p1_pidF$AlternativaOptima) #Las alternativas optimas son d1 y d3
+p1_pidF$ValorAlternativas
+p1_pidD = criterio.PuntoIdeal(tabla1,F)
+names(p1_pidD$AlternativaOptima) #La alternativa optima es d2
 
 ```
-
-Concluimos que la alternativa óptima es d3, debido a que sale como mejor opción en todos los criterios aplicados, a pesar de que la alternativa d1 también sale en la mayoría.
-
-### Problema 2: Inés busca trabajo en una ciudad nueva, para ello está buscando piso y ha encontrado dos opciones que se ajustan a sus necesidades, una de ellas se encuentra a 5 minutos andando del trabajo y la otra a 1 hora en autobus. Su sueldo si consigue el trabajo sería de 1500€ al mes, si elige vivir cerca no tendrá gastos en transporte ni en comer fuera pero el alquiler supondría el 60% de su sueldo, mientras que si escoge vivir lejos deberá gastar el 5% en transporte, el 20% en comida y el 25% en alquiler. ¿Qué decisión tomará Inés si no sabe si conseguirá el trabajo?
-
-Trasladamos lo datos obtenidos a una tabla en la que tenemos dos alternativas (d1=vivir cerca, d2=vivir lejos) y 2 estados de la naturaleza (e1=si consigue el trabajo, e2=si no lo consigue).
-
-```{r}
-source("teoriadecision_funciones_incertidumbre.R")
-
-m11 = 1500 - (1500*0 + 1500*0.4 + 1500*0)
-m12 = 0 - (1500*0 + 1500*0.4 + 1500*0)
-m21 = 1500 - (1500*0.05 + 1500*0.25 + 1500*0.2)
-m22 = 0 - (1500*0 + 1500*0.25 + 1500*0) #No haría gasto en transporte y comida porque no va a tener que desplazarse si no consigue el empleo.
-
-
-tabla2=crea.tablaX(c(m11,m12,
-                   m21,m22),numalternativas=2,numestados=2)
-tabla2
-```
-
-Ahora realizamos la resolución utilizando todos los métodos, viendolo en forma de tabla que decisión debería tomar Inés.
-
-```{r}
-criterio.Todos(tabla2,alfa=0.5,T)
-#criterio.Todos(tabla2,alfa=0.5,T)[3,] devuelve la tercera fila que es la de las decisiones según cada criterio
-```
-
-Concluimos entonces que Inés deberá mudarse lejos del trabajo, ya que en este caso ahorraría 750€ al mes si consigue el trabajo y perdería -375€ si no lo consigue. Todos los criterios coinciden excepto el criterio optimista.
