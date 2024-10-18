@@ -61,3 +61,22 @@ p1_pidD = criterio.PuntoIdeal(tabla1,F)
 names(p1_pidD$AlternativaOptima) #La alternativa optima es d2
 
 ```
+Concluimos en situación favorable que la alternativa óptima es d3, debido a que sale como mejor opción en todos los criterios aplicados, a pesar de que la alternativa d1 también sale en muchos de ellos. Mientras que en situación pesimista la alternativa óptima es d2.
+
+### Problema 2: Inés busca trabajo en una ciudad nueva, para ello está buscando piso y ha encontrado dos opciones que se ajustan a sus necesidades, una de ellas se encuentra a 5 minutos andando del trabajo y la otra a 1 hora en autobus. Su sueldo si consigue el trabajo sería de 1500€ al mes, si elige vivir cerca no tendrá gastos en transporte ni en comer fuera pero el alquiler supondría el 40% de su sueldo, mientras que si escoge vivir lejos deberá gastar el 5% en transporte, el 20% en comida y el 25% en alquiler. ¿Qué decisión tomará Inés si no sabe si conseguirá el trabajo?
+
+Trasladamos lo datos obtenidos a una tabla en la que tenemos dos alternativas (d1=vivir cerca, d2=vivir lejos) y 2 estados de la naturaleza (e1=si consigue el trabajo, e2=si no lo consigue).
+
+```{r}
+source("teoriadecision_funciones_incertidumbre.R")
+
+m11 = 1500 - (1500*0 + 1500*0.4 + 1500*0)
+m12 = 0 - (1500*0 + 1500*0.4 + 1500*0)
+m21 = 1500 - (1500*0.05 + 1500*0.25 + 1500*0.2)
+m22 = 0 - (1500*0 + 1500*0.25 + 1500*0) #No haría gasto en transporte y comida porque no va a tener que desplazarse si no consigue el empleo.
+
+
+tabla2=crea.tablaX(c(m11,m12,
+                   m21,m22),numalternativas=2,numestados=2)
+tabla2
+```
