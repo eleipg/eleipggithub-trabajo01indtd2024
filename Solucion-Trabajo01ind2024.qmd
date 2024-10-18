@@ -80,3 +80,10 @@ tabla2=crea.tablaX(c(m11,m12,
                    m21,m22),numalternativas=2,numestados=2)
 tabla2
 ```
+Ahora realizamos la resolución utilizando todos los métodos, viendo en forma de tabla que decisión debería tomar Inés.
+
+```{r}
+criterio.Todos(tabla2,alfa=0.5,T)
+#criterio.Todos(tabla2,alfa=0.5,T)[3,] devuelve la tercera fila que es la de las decisiones según cada criterio
+```
+Concluimos entonces que Inés deberá mudarse lejos del trabajo, ya que en este caso ahorraría 750€ al mes si consigue el trabajo y perdería -375€ si no lo consigue. Todos los criterios coinciden excepto el criterio optimista.
